@@ -5,7 +5,7 @@ goat() {
     go run github.com/bluesky-social/indigo/cmd/goat@latest "$@"
 }
 
-ACCOUNT=$1
+ACCOUNT="${1#@}"
 
 rm -f "$ACCOUNT".car
 goat repo export -o "$ACCOUNT".car "$ACCOUNT"
