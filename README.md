@@ -18,6 +18,8 @@ This is based on https://github.com/simonw/git-scraper-template by Simon Williso
 
 ## How to use this
 
+<img width="754" height="390" alt="image" src="https://github.com/user-attachments/assets/f0f1a19c-d34d-49a6-bfe2-51ec49517c6f" />
+
 1. Visit https://github.com/FiloSottile/bsky-backup-template/generate.
 
 2. Pick a name for your new repository, then type the Bluesky handle
