@@ -29,7 +29,7 @@ jobs:
         fi
         chmod +x run.sh
         echo "Created run.sh"
-        echo -e "# Scheduled Bluesky backup\n\nFor `$REPO_DESC`." > README.md 
+        echo -e "# Scheduled Bluesky backup\n\nFor \`$REPO_DESC\`." > README.md 
       env:
         REPO_DESC: ${{ github.event.repository.description }}
     - name: Run the scraper
