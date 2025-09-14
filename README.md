@@ -1,6 +1,6 @@
 # bsky-backup-template
 
-Template repository for setting up a new ATProto repository backup using GitHub Actions.
+Template repository for setting up a new ATProto repository or PDS backup using GitHub Actions.
 
 The contents of the repository will allow an [adversarial PDS
 migration](https://www.da.vidbuchanan.co.uk/blog/adversarial-pds-migration.html)
@@ -22,17 +22,21 @@ This is based on https://github.com/simonw/git-scraper-template by Simon Williso
 
 1. Visit https://github.com/FiloSottile/bsky-backup-template/generate.
 
-2. Pick a name for your new repository, then type the Bluesky handle
+2. Pick a name for your new repository, then type either the Bluesky handle
    (including the @, e.g. `@filippo.abyssdomain.expert`) or DID (e.g.
-   `did:plc:x2nsupeeo52oznrmplwapppl`) **description field**.
+   `did:plc:x2nsupeeo52oznrmplwapppl`), **or** the URL of a PDS you
+   self‑host (e.g. `https://pds.example.com`) in the **description field**.
 
 3. Click **Create repository from template**.
 
 Your new repository will be created, and a script will run which will do the following:
 
 - Add a `run.sh` script to your repository which uses
-  [`goat`](https://pkg.go.dev/github.com/bluesky-social/indigo/cmd/goat) via the
-  `./backup.sh` script to backup the ATProto repository of the account you
-  specified in the description field.
+  [`goat`](https://pkg.go.dev/github.com/bluesky-social/indigo/cmd/goat) to
+  backup the target specified in the description field:
+  - `./backup.sh` for single accounts.
+  - `./backup_pds.sh` for an entire PDS. This exports all repositories on
+    the PDS, keeps the last seven daily CAR snapshots per user, and exports
+    all blobs once a month (skipping on failure).
 - Run that `./run.sh` command and commit the result to the repository.
 - Configure a schedule to run this script once every 24 hours.
