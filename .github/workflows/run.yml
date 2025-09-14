@@ -24,14 +24,18 @@ jobs:
       run: |
         [ -f "run.sh" ] && exit 0
         echo "#!/bin/bash" > run.sh
-        if [[ "$REPO_DESC" == @* ]] || [[ "$REPO_DESC" == did:* ]]; then
+        if [[ "$REPO_DESC" == https://* ]]; then
+          echo "./backup_pds.sh $REPO_DESC" >> run.sh
+          echo -e "# Scheduled PDS backup\n\nFor \`$REPO_DESC\`." > README.md
+        elif [[ "$REPO_DESC" == @* ]] || [[ "$REPO_DESC" == did:* ]]; then
           echo "./backup.sh $REPO_DESC" >> run.sh
+          echo -e "# Scheduled Bluesky backup\n\nFor \`$REPO_DESC\`." > README.md
         else
-          echo "# ./backup.sh @bsky.app" >> run.sh
+          echo "# ./backup.sh @bsky.app or ./backup_pds.sh https://pds.example.com" >> run.sh
+          echo -e "# Scheduled Bluesky backup\n\nEdit the repository description to your handle or PDS URL." > README.md
         fi
         chmod +x run.sh
         echo "Created run.sh"
-        echo -e "# Scheduled Bluesky backup\n\nFor \`$REPO_DESC\`." > README.md 
       env:
         REPO_DESC: ${{ github.event.repository.description }}
     - name: Run the scraper
